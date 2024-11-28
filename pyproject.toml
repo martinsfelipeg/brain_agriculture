@@ -8,6 +8,12 @@ readme = "README.md"
 [tool.poetry.dependencies]
 python = "^3.12"
 fastapi = {extras = ["standard"], version = "^0.115.5"}
+sqlalchemy = "^2.0.36"
+pydantic-settings = "^2.6.1"
+alembic = "^1.14.0"
+pyjwt = "^2.10.0"
+pwdlib = {extras = ["argon2"], version = "^0.2.1"}
+psycopg = {extras = ["binary"], version = "^3.2.3"}
 
 
 [tool.poetry.group.dev.dependencies]
@@ -17,6 +23,7 @@ ruff = "^0.8.0"
 
 [tool.ruff]
 line-length = 79
+extend-exclude = ['migrations']
 
 [tool.ruff.format]
 quote-style = 'single'
