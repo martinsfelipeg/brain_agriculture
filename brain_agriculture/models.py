@@ -1,6 +1,3 @@
-from datetime import datetime
-
-from sqlalchemy import func
 from sqlalchemy.orm import Mapped, mapped_column, registry
 
 table_registry = registry()
@@ -14,6 +11,7 @@ class User:
     username: Mapped[str] = mapped_column(unique=True)
     password: Mapped[str]
     email: Mapped[str] = mapped_column(unique=True)
+
 
 @table_registry.mapped_as_dataclass
 class Farmer:

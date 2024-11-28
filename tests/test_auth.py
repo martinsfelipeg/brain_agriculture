@@ -1,5 +1,6 @@
 from http import HTTPStatus
 
+
 def test_get_token(client, user):
     response = client.post(
         'auth/token',
@@ -10,6 +11,7 @@ def test_get_token(client, user):
     assert response.status_code == HTTPStatus.OK
     assert 'access_token' in token
     assert 'token_type' in token
+
 
 def test_refresh_token(client, user, token):
     response = client.post(

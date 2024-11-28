@@ -7,7 +7,12 @@ from sqlalchemy.orm import Session
 
 from brain_agriculture.database import get_session
 from brain_agriculture.models import Farmer
-from brain_agriculture.schemas import FarmerSchema, FarmerList, FilterPage, Message
+from brain_agriculture.schemas import (
+    FarmerSchema,
+    FarmerList,
+    FilterPage,
+    Message,
+)
 
 router = APIRouter(prefix='/farmers', tags=['farmers'])
 Session = Annotated[Session, Depends(get_session)]
@@ -25,7 +30,7 @@ def create_farmer(farmer: FarmerSchema, session: Session):
                 status_code=HTTPStatus.BAD_REQUEST,
                 detail='CNPJ or CPF already exists',
             )
-    
+
     db_farmer = Farmer(
         ndoc=farmer.ndoc,
         name=farmer.name,
@@ -46,20 +51,20 @@ def create_farmer(farmer: FarmerSchema, session: Session):
 
 
 @router.get('/', response_model=FarmerList)
-def read_farmers(session: Session, filter_farmers: Annotated[FilterPage, Query()]):
+def read_farmers(
+    session: Session, filter_farmers: Annotated[FilterPage, Query()]
+):
     farmers = session.scalars(
-        select(Farmer).offset(filter_farmers.offset).limit(filter_farmers.limit)
+        select(Farmer)
+        .offset(filter_farmers.offset)
+        .limit(filter_farmers.limit)
     ).all()
 
     return {'farmers': farmers}
 
 
 @router.put('/', response_model=FarmerSchema)
-def update_farmer(
-    ndoc: str,
-    farmer: FarmerSchema,
-    session: Session
-    ):
+def update_farmer(ndoc: str, farmer: FarmerSchema, session: Session):
     db_farmer = session.scalar(select(Farmer).where(Farmer.ndoc == ndoc))
     if not db_farmer:
         raise HTTPException(
@@ -83,10 +88,7 @@ def update_farmer(
 
 
 @router.delete('/', response_model=Message)
-def delete_farmer(
-    ndoc: str,
-    session: Session
-    ):
+def delete_farmer(ndoc: str, session: Session):
     db_farmer = session.scalar(select(Farmer).where(Farmer.ndoc == ndoc))
 
     if not db_farmer:

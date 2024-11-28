@@ -11,6 +11,8 @@ from brain_agriculture.settings import Settings
 
 
 settings = Settings()
+
+
 @pytest.fixture
 def client(session):
     def get_session_override():
@@ -38,8 +40,10 @@ def session():
 def user(session):
     password_clean = '123456'
     hashed_password = get_password_hash(password_clean)
-    
-    user = User(username='felipe', email='felipe@test.com', password=hashed_password)
+
+    user = User(
+        username='felipe', email='felipe@test.com', password=hashed_password
+    )
     session.add(user)
     session.commit()
     session.refresh(user)
@@ -47,6 +51,7 @@ def user(session):
     user.clean_password = password_clean
 
     return user
+
 
 @pytest.fixture
 def token(client, user):

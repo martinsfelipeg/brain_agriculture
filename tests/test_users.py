@@ -19,6 +19,7 @@ def test_create_user(client):
         'id': 1,
     }
 
+
 def test_read_users(client):
     response = client.get('/users')
     assert response.status_code == HTTPStatus.OK
@@ -58,7 +59,7 @@ def test_update_integrity_error(client, user, token):
             'password': 'password123',
         },
     )
-    
+
     response_update = client.put(
         f'/users/{user.id}',
         headers={'Authorization': f'Bearer {token}'},
@@ -77,9 +78,8 @@ def test_update_integrity_error(client, user, token):
 
 def test_delete_user(client, user, token):
     response = client.delete(
-        f'/users/{user.id}',
-        headers={'Authorization': f'Bearer {token}'}
-        )
+        f'/users/{user.id}', headers={'Authorization': f'Bearer {token}'}
+    )
 
     assert response.status_code == HTTPStatus.OK
     assert response.json() == {'message': 'User deleted'}

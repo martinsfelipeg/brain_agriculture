@@ -13,7 +13,7 @@ from brain_agriculture.schemas import (
     UserList,
     UserPublic,
     UserSchema,
-    FilterPage
+    FilterPage,
 )
 from brain_agriculture.security import get_current_user, get_password_hash
 
@@ -89,7 +89,7 @@ def update_user(
     except IntegrityError:
         raise HTTPException(
             status_code=HTTPStatus.CONFLICT,
-            detail='Username or Email already exists'
+            detail='Username or Email already exists',
         )
 
 
