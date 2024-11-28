@@ -17,5 +17,15 @@ test:
 post_test:
 	coverage html
 
-run:
-	fastapi dev brain_agriculture/app.py
+run_postgres:
+	docker run -d \
+    --name brain_agriculture_database \
+    -e POSTGRES_USER=app_user \
+    -e POSTGRES_DB=app_db \
+    -e POSTGRES_PASSWORD=app_password \
+    -v pgdata:/var/lib/postgresql/data \
+    -p 5432:5432 \
+    postgres
+
+run_compose:
+	docker-compose up --build

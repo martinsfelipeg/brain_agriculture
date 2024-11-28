@@ -1,0 +1,25 @@
+services:
+  brain_agriculture_database:
+    image: postgres
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    environment:
+      POSTGRES_USER: app_user
+      POSTGRES_DB: app_db
+      POSTGRES_PASSWORD: app_password
+    ports:
+      - "5432:5432"
+
+  brain_agriculture_app:
+    image: brain_agriculture_app
+    entrypoint: ./entrypoint.sh
+    build: .
+    ports:
+      - "8000:8000"
+    depends_on:
+      - brain_agriculture_database
+    environment:
+      DATABASE_URL: postgresql+psycopg://app_user:app_password@brain_agriculture_database:5432/app_db
+
+volumes:
+  pgdata:
