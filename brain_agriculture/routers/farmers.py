@@ -63,7 +63,7 @@ def read_farmers(
     return {'farmers': farmers}
 
 
-@router.put('/', response_model=FarmerSchema)
+@router.put('/{ndoc}', response_model=FarmerSchema)
 def update_farmer(ndoc: str, farmer: FarmerSchema, session: Session):
     db_farmer = session.scalar(select(Farmer).where(Farmer.ndoc == ndoc))
     if not db_farmer:
@@ -87,7 +87,7 @@ def update_farmer(ndoc: str, farmer: FarmerSchema, session: Session):
     return db_farmer
 
 
-@router.delete('/', response_model=Message)
+@router.delete('/{ndoc}', response_model=Message)
 def delete_farmer(ndoc: str, session: Session):
     db_farmer = session.scalar(select(Farmer).where(Farmer.ndoc == ndoc))
 
@@ -100,4 +100,4 @@ def delete_farmer(ndoc: str, session: Session):
     session.delete(db_farmer)
     session.commit()
 
-    return db_farmer
+    return {'message': 'Farmer deleted'}

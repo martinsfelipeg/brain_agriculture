@@ -1,11 +1,9 @@
-from typing import List, Literal
-
 from pydantic import (
     BaseModel,
     ConfigDict,
     EmailStr,
     constr,
-    field_validator,
+    model_validator,
 )
 
 
@@ -55,20 +53,15 @@ class FarmerSchema(BaseModel):
     total_area: float
     arable_area: float
     vegetation_area: float
-    planted_crops: List[
-        Literal['Soy', 'Corn', 'Cotton', 'Coffee', 'Sugar Cane']
-    ]
+    planted_crops: str
 
-    @field_validator('total_area', 'arable_area', 'vegetation_area')
-    def validate_areas(cls, value):
-        total = value.get('total_area', 0)
-        agric = value.get('arable_area', 0)
-        veget = value.get('vegetation_area', 0)
-        if agric + veget > total:
+    @model_validator(mode='after')
+    def validate_areas(cls, model):
+        if model.arable_area + model.vegetation_area > model.total_area:
             raise ValueError(
                 'The sum of agricultural and vegetation areas cannot exceed the total area of the farm.'
             )
-        return value
+        return model
 
 
 class FarmerList(BaseModel):

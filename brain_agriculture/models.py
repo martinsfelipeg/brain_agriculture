@@ -17,8 +17,7 @@ class User:
 class Farmer:
     __tablename__ = 'farmers'
 
-    id: Mapped[int] = mapped_column(init=False, primary_key=True)
-    ndoc: Mapped[str] = mapped_column(unique=True)
+    ndoc: Mapped[str] = mapped_column(unique=True, primary_key=True)
     name: Mapped[str]
     farm_name: Mapped[str]
     city: Mapped[str]
