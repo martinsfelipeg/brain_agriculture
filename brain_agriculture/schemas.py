@@ -1,3 +1,5 @@
+from typing import List
+
 from pydantic import (
     BaseModel,
     ConfigDict,
@@ -66,3 +68,20 @@ class FarmerSchema(BaseModel):
 
 class FarmerList(BaseModel):
     farmers: list[FarmerSchema]
+
+
+class TotalFarmsCount(BaseModel):
+    total_farms: int
+
+
+class TotalFarmsArea(BaseModel):
+    total_area: float
+
+
+class PieChartData(BaseModel):
+    label: str
+    value: float
+
+
+class PieChart(BaseModel):
+    data: List[PieChartData]
