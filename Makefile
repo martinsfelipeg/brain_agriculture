@@ -19,7 +19,7 @@ post_test:
 
 run_postgres:
 	docker run -d \
-    --name brain_agriculture_database \
+    --name app_database \
     -e POSTGRES_USER=app_user \
     -e POSTGRES_DB=app_db \
     -e POSTGRES_PASSWORD=app_password \

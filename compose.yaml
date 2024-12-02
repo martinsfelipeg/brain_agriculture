@@ -1,5 +1,5 @@
 services:
-  brain_agriculture_database:
+  brainagriculturedb:
     image: postgres
     volumes:
       - pgdata:/var/lib/postgresql/data
@@ -17,9 +17,9 @@ services:
     ports:
       - "8000:8000"
     depends_on:
-      - brain_agriculture_database
+      - brainagriculturedb
     environment:
-      DATABASE_URL: postgresql+psycopg://app_user:app_password@brain_agriculture_database:5432/app_db
+      DATABASE_URL: postgresql+psycopg://app_user:app_password@brainagriculturedb:5432/app_db
 
 volumes:
   pgdata:
