@@ -1,6 +1,6 @@
 """create users table and farmers table
 
-Revision ID: 13a61e39d2f6
+Revision ID: ddb020f2f7c6
 Revises: 
 Create Date: 2024-11-30 17:07:47.294638
 
@@ -12,7 +12,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision: str = '13a61e39d2f6'
+revision: str = 'ddb020f2f7c6'
 down_revision: Union[str, None] = None
 branch_labels: Union[str, Sequence[str], None] = None
 depends_on: Union[str, Sequence[str], None] = None
